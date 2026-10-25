@@ -1,0 +1,95 @@
+# ============================================================
+#  Fantnel 项目根 .gitignore
+#  覆盖 .NET 启动器(FantnelLauncher) + 前端(web/) + 后端(back/) 产物
+#  以及编辑器 / 操作系统 杂项
+# ============================================================
+
+# ---------- .NET / Visual Studio ----------
+# 构建与中间产物（bin/obj 里都是可再生成的编译输出）
+**/bin/
+**/obj/
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio 用户与缓存
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+*UpgradeLog*.htm
+
+# 包缓存 / NuGet
+*.nupkg
+*.snupkg
+**/packages/*
+!**/packages/build/
+
+
+
+# ---------- Node.js / Vite / 前端 ----------
+node_modules/
+**/node_modules/
+dist/
+dist-ssr/
+*.local
+
+# 前端调试/构建日志
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+web/vite-test.log
+
+# 环境变量（可能含密钥，切勿提交）
+*.env*
+
+# ---------- 运行时日志 / 输出 ----------
+# 启动器运行日志
+launcher-error.log
+**/launcher-error.log
+logs/
+*.log
+
+# ---------- 编辑器 / IDE ----------
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.iml
+*.sw?
+*.code-workspace
+
+# ---------- 操作系统 ----------
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ---------- 其他 ----------
+# 随机/临时
+*.tmp
+*~
+
+# 忽略游戏缓存目录
+back/.game_cache/
+*.game_cache
+
+# 忽略常见的构建/发布目录
+relese/
+release/
+build/
+dist/
+
+# 忽略大型压缩包和下载临时文件
+*.zip
+*.tar.gz
+*.download
+*.iso
+*.exe
+*.dmg
+
