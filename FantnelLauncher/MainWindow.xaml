@@ -1,0 +1,116 @@
+<Window x:Class="FantnelLauncher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        mc:Ignorable="d"
+        Title="Fantnel"
+        Height="800" Width="1280"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="CanResizeWithGrip"
+        Background="#ECECEC">
+
+    <!--
+      NOTE: No WindowChrome here. WindowChrome is incompatible with WebView2: it makes
+      WebView2's controller creation fail with "0x800700AA 请求的资源在使用中". Instead we use
+      the classic frameless approach: drag is done by hand (TitleBar mouse handlers in code),
+      resize via the bottom-right grip (ResizeMode=CanResizeWithGrip), and maximize snaps to
+      the work area in code (MacButton_Click). This coexists cleanly with WebView2.
+    -->
+
+    <Window.Resources>
+        <Style x:Key="MacDotButton" TargetType="Button">
+            <Setter Property="Width" Value="13"/>
+            <Setter Property="Height" Value="13"/>
+            <Setter Property="Margin" Value="4,0,4,0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="dot"
+                                Width="13" Height="13"
+                                CornerRadius="6.5"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="#22000000"
+                                BorderThickness="1">
+                            <TextBlock x:Name="glyph"
+                                       Text="{TemplateBinding Tag}"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontSize="10"
+                                       FontFamily="Segoe MDL2 Assets"
+                                       Foreground="#88000000"
+                                       Visibility="Collapsed"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="glyph" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="44"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Custom MAC-style title bar -->
+        <Border x:Name="TitleBar"
+                Grid.Row="0"
+                Background="#F5F5F7"
+                BorderBrush="#D9D9DE"
+                BorderThickness="0,0,0,1"
+                MouseLeftButtonDown="TitleBar_MouseLeftButtonDown"
+                MouseLeftButtonUp="TitleBar_MouseLeftButtonUp"
+                MouseMove="TitleBar_MouseMove">
+
+            <Grid>
+                <TextBlock x:Name="TitleText"
+                           Text="Fantnel"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="13"
+                           FontWeight="SemiBold"
+                           Foreground="#3A3A3C"
+                           IsHitTestVisible="False"/>
+
+                <StackPanel x:Name="MacButtons"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Margin="0,0,12,0">
+                    <Button x:Name="BtnClose"
+                            Style="{StaticResource MacDotButton}"
+                            Background="#FF5F57"
+                            Tag="&#xE8BB;"
+                            CommandParameter="close"
+                            Click="MacButton_Click"/>
+                    <Button x:Name="BtnMinimize"
+                            Style="{StaticResource MacDotButton}"
+                            Background="#FEBC2E"
+                            Tag="&#xE921;"
+                            CommandParameter="minimize"
+                            Click="MacButton_Click"/>
+                    <Button x:Name="BtnMaximize"
+                            Style="{StaticResource MacDotButton}"
+                            Background="#28C840"
+                            Tag="&#xE922;"
+                            CommandParameter="maximize"
+                            Click="MacButton_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <wv2:WebView2 x:Name="webView"
+                      Grid.Row="1"
+                      Visibility="Visible"/>
+    </Grid>
+</Window>
