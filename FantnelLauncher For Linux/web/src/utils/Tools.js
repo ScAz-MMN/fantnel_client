@@ -1,0 +1,453 @@
+import axios from "axios";
+import router from "../router";
+import { isAuthenticated, getToken, fetchCloudFavorites, pushCloudFavorites } from "./Auth";
+
+// 图片地址归一化：解决列表页图片不预加载/加载失败的问题。
+// 后端部分接口返回的是相对路径（如 /image/skin/xxx.png），直接绑定 <img src>
+// 会解析到前端源而加载失败；这里把相对路径统一补成绝对地址。
+// - 绝对地址（http/https//data://）原样返回
+// - /api/ 走代理/同源，原样返回
+// - 其余相对路径（/image/... 等）拼接当前源（前端与后端同源托管时即后端地址）
+export function normalizeImage(url) {
+    if (!url || typeof url !== "string") return url;
+    if (/^(https?:)?\/\//.test(url) || url.startsWith("data:")) return url;
+    if (url.startsWith("/api/")) return url;
+    if (url.startsWith("/")) return window.location.origin + url;
+    return window.location.origin + "/" + url;
+}
+
+/* ---------- 收藏（登录→云端MySQL / 未登录→本地localStorage） ---------- */
+const FAVORITES_KEY = 'fantnel_favorites'
+
+// 云端收藏的内存缓存：{ servers: [], rentals: [] }
+let cloudFavorites = { servers: [], rentals: [] }
+
+function readFavorites() {
+    try {
+        const raw = localStorage.getItem(FAVORITES_KEY)
+        const data = raw ? JSON.parse(raw) : {}
+        return { servers: data.servers || [], rentals: data.rentals || [] }
+    } catch (e) {
+        return { servers: [], rentals: [] }
+    }
+}
+
+function writeFavorites(data) {
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify(data))
+}
+
+// 登录后从 MySQL 拉取当前用户收藏，覆盖本地（用户数据存云端）
+export async function syncFavoritesFromCloud() {
+    if (!isAuthenticated()) return cloudFavorites
+    const cloud = await fetchCloudFavorites()
+    if (cloud && cloud.servers && cloud.rentals) {
+        cloudFavorites = { servers: cloud.servers.slice(), rentals: cloud.rentals.slice() }
+        writeFavorites(cloudFavorites)
+    }
+    return cloudFavorites
+}
+
+// 未登录时把本地收藏合并进内存缓存（便于切换账号时保留本地数据）
+export function loadLocalFavoritesIntoCache() {
+    if (!isAuthenticated()) {
+        cloudFavorites = readFavorites()
+    }
+    return cloudFavorites
+}
+
+// 当前收藏列表（type: 'servers' | 'rentals'）
+export function getFavorites(type) {
+    // 未登录或尚未同步时，用本地缓存兜底
+    if (!isAuthenticated() || !cloudFavorites[type]) {
+        return readFavorites()[type] || []
+    }
+    return cloudFavorites[type] || []
+}
+
+// 是否已收藏
+export function isFavorite(type, id) {
+    return getFavorites(type).includes(id)
+}
+
+// 收藏/取消收藏；type: 'servers' | 'rentals'；返回是否新增
+export function toggleFavorite(type, id) {
+    id = String(id)
+    const source = isAuthenticated() ? cloudFavorites : readFavorites()
+    if (!source[type]) source[type] = []
+    const list = source[type]
+    const idx = list.indexOf(id)
+    let added
+    if (idx >= 0) { list.splice(idx, 1); added = false }
+    else { list.push(id); added = true }
+
+    if (isAuthenticated()) {
+        cloudFavorites[type] = list.slice()
+        // 云端同步（整表覆盖，防注入由后端预编译处理）
+        pushCloudFavorites(type, cloudFavorites[type])
+    } else {
+        writeFavorites(source)
+    }
+    return added
+}
+
+// Home 页
+export async function getHome_Info() {
+    return axios("/api/home").then(res => res.data);
+}
+
+// 获取所有账号
+export async function getAccounts() {
+    return axios("/api/gameaccount/get").then(res => res.data);
+}
+
+// 获取可用账号
+export async function getAvailableAccounts() {
+    return axios("/api/gameaccount/available").then(res => res.data);
+}
+
+// 添加账号
+export async function addAccount(formData) {
+    return await axios.post("/api/gameaccount/save", formData).then(res => res.data);
+}
+
+// 登录账号
+export async function selectAccount(id) {
+    return await axios.get(`/api/gameaccount/select?id=${id}`).then(res => res.data);
+}
+
+// 切换账号
+export async function switchAccount(id) {
+    return await axios.get(`/api/gameaccount/switch?id=${id}`).then(res => res.data);
+}
+
+// 获取当前选择账号信息
+export async function getGameAccount() {
+    return await axios.get(`/api/gameaccount/current`).then(res => res.data);
+}
+
+// 删除账号
+export async function deleteAccount(id) {
+    return await axios.get(`/api/gameaccount/delete?id=${id}`).then(res => res.data);
+}
+
+// 更新账号
+export async function updateAccount(formData) {
+    return await axios.post("/api/gameaccount/update", formData).then(res => res.data);
+}
+
+// 获取服务器列表
+export async function getServerList(offset = 0, pageSize = 10) {
+    return await axios.get(`/api/gameserver/get?offset=${offset}&pageSize=${pageSize}`).then(res => res.data);
+}
+
+// 获取服务器详情
+export async function selectServer(id) {
+    return await axios.get(`/api/gameserver/id?id=${id}`).then(res => res.data);
+}
+
+// 获取服务器 账号/角色
+export async function getServerInfo(id) {
+    return await axios.get(`/api/gameserver/getlaunch?id=${id}`).then(res => res.data);
+}
+
+// 添加游戏名称
+export async function addServerRole(id, name) {
+    return await axios.post("/api/gameserver/createname", { id, name }).then(res => res.data);
+}
+
+// 启动游戏代理
+export async function launchProxy(id, name, mode = "net") {
+    return await axios.get(`/api/gameserver/launch?id=${id}&name=${name}&mode=${mode}`).then(res => res.data);
+}
+
+// 启动游戏白端
+export async function launchGame(id, name, mode = "net") {
+    return await axios.get(`/api/gamelaunch/launch?id=${id}&name=${name}&mode=${mode}`).then(res => res.data);
+}
+
+// 获取插件列表
+export async function getPlugins() {
+    return await axios.get("/api/plugins/get").then(res => res.data);
+}
+
+// 切换插件状态
+export async function togglePluginStatus(id) {
+    return await axios.get(`/api/plugins/toggle?id=${id}`).then(res => res.data);
+}
+
+// 删除插件
+export async function deletePlugin(id) {
+    return await axios.get(`/api/plugins/delete?id=${id}`).then(res => res.data);
+}
+
+// 获取所有插件 - 插件商城
+export async function getPluginList() {
+    return await axios.get("/api/pluginstore/get").then(res => res.data);
+}
+
+// 获取插件详情
+export async function getPluginDetail(id) {
+    return await axios.get(`/api/pluginstore/detail?id=${id}`).then(res => res.data);
+}
+
+// 安装插件
+export async function installPlugin(id) {
+    return await axios.get(`/api/pluginstore/install?id=${id}`).then(res => res.data);
+}
+
+// 获取主题名
+export async function getThemeName() {
+    return await axios.get(`/api/theme`).then(res => res.data);
+}
+
+// 切换主题
+export async function setThemeName(name) {
+    return await axios.get(`/api/theme/set?name=${name}`).then(res => res.data);
+}
+
+// 获取 4399验证码 图片URL
+export async function getCaptcha4399Url() {
+    return "/api/gameaccount/captcha4399";
+}
+
+// 验证 4399验证码
+export async function verifyCaptcha4399(text) {
+    return await axios.post("/api/gameaccount/captcha4399/verify", text).then(res => res.data);
+}
+
+// 获取 4399 验证码内容
+export async function getCaptcha4399Content() {
+    return await axios.get(`/api/gameaccount/captcha4399/content`).then(res => res.data);
+}
+
+// 获取白端游戏信息
+export async function getGameLaunchInfo() {
+    return await axios.get(`/api/gamelaunch/get`).then(res => res.data);
+}
+
+// 关闭白端游戏
+export async function closeGameLaunch(id) {
+    return await axios.get(`/api/gamelaunch/close?id=${id}`).then(res => res.data);
+}
+
+// 获取代理服务器信息
+export async function getProxyServerInfo() {
+    return await axios.get(`/api/server/get`).then(res => res.data);
+}
+
+// 关闭代理服务器
+export async function closeProxyServer(id) {
+    return await axios.get(`/api/server/close?id=${id}`).then(res => res.data);
+}
+
+// 获取游戏皮肤列表
+export async function getGameSkinList(offset = 0, pageSize = 10) {
+    return await axios.get(`/api/gameskin/get?offset=${offset}&pageSize=${pageSize}`).then(res => res.data);
+}
+
+// 获取游戏皮肤详情
+export async function getGameSkinDetail(id) {
+    return await axios.get(`/api/gameskin/detail?id=${id}`).then(res => res.data);
+}
+
+// 获取版本
+export async function getVersion() {
+    try {
+        const res = await axios.get(`/api/version`, { timeout: 2000 });
+        // 检查 data.id 是否存在
+        if (!res.data.data || !res.data.data.id) {
+            return {
+                "code": -1,
+                "data": {
+                    "version": "-1",
+                    "id": -1,
+                    "mode": "win64"
+                },
+                "msg": "获取失败"
+            };
+        }
+        return res.data;
+    } catch (error) {
+        return {
+            "code": -1,
+            "data": {
+                "version": "-1",
+                "id": -1,
+                "mode": "win64"
+            },
+            "msg": "获取失败"
+        };
+    }
+}
+
+// 获取版本ID
+export async function getVersionId() {
+    return getVersion().then(res => res.data.id);
+}
+
+// 是否版本安全
+export async function isVersionSafe(id, throwError = true) {
+    // 如果小于，提示可能该版本可能不包含当前内容，然后返回 Home 页
+    return getVersionId().then(id1 => {
+        if (id1 < id) {
+            if (throwError) {
+                router.push("/version");
+            }
+        }
+        return id1 >= id;
+    });
+}
+
+// 设置游戏皮肤
+export async function setGameSkin(id) {
+    return await axios.get(`/api/gameskin/set?id=${id}`).then(res => res.data);
+}
+
+// 获取皮肤 - 根据名称
+export async function getGameSkinListByName(name, offset = 0, pageSize = 10) {
+    return await axios.get(`/api/gameskin/get?name=${name}&offset=${offset}&pageSize=${pageSize}`).then(res => res.data);
+}
+
+// 获取租赁服列表
+export async function getRentalServerList(offset = 0, pageSize = 10) {
+    return await axios.get(`/api/gamerental/get?offset=${offset}&pageSize=${pageSize}`).then(res => res.data);
+}
+
+// 获取租赁服详情
+export async function getRentalServerDetail(id) {
+    return await axios.get(`/api/gamerental/id?id=${id}`).then(res => res.data);
+}
+
+// 租赁服排序
+export async function sortRentalServer() {
+    return await axios.get(`/api/gamerental/sort`);
+}
+
+// 添加租赁服角色
+export async function addRentalRole(id, name) {
+    return await axios.post(`/api/gamerental/createname`, { id, name }).then(res => res.data);
+}
+
+// 获取租赁服 账号/角色
+export async function getRentalInfo(id) {
+    return await axios.get(`/api/gamerental/getlaunch?id=${id}`).then(res => res.data);
+}
+
+// 获取服务器的依赖插件
+export async function getServerPlugins(id = "", version = "") {
+    return await axios.get(`/api/plugins/dependence?id=${id}&version=${version}`).then(res => res.data);
+}
+
+// 登录涅槃账号
+export async function loginNirvana(account, password) {
+    return await axios.get(`/api/nirvana/login?account=${account}&password=${password}`).then(res => res.data);
+}
+
+// 退出涅槃账号
+export async function logoutNirvana() {
+    return await axios.get(`/api/nirvana/logout`).then(res => res.data);
+}
+
+// 获取涅槃账号信息
+export async function getNirvanaAccount() {
+    return await axios.get(`/api/nirvana/account/get`).then(res => res.data);
+}
+
+// 隐藏账号
+export async function hideNirvanaAccount(value = "true") {
+    return await axios.get(`/api/nirvana/set?mode=hideAccount&value=${value}`).then(res => res.data);
+}
+
+// 聊天启用
+export async function chatEnable(value = "true") {
+    return await axios.get(`/api/nirvana/set?mode=chatEnable&value=${value}`).then(res => res.data);
+}
+
+// 游戏内存
+export async function gameMemory(value = "4096") {
+    return await axios.get(`/api/nirvana/set?mode=gameMemory&value=${value}`).then(res => res.data);
+}
+
+// JVM参数
+export async function jvmArgs(value) {
+    return await axios.get(`/api/nirvana/set?mode=jvmArgs&value=${value}`).then(res => res.data);
+}
+
+// 游戏参数
+export async function gameArgs(value) {
+    return await axios.get(`/api/nirvana/set?mode=gameArgs&value=${value}`).then(res => res.data);
+}
+
+// 获取设置配置
+export async function getSettings() {
+    return await axios.get(`/api/nirvana/get`).then(res => res.data);
+}
+
+// 自动登录游戏
+export async function autoLoginGame(value = "true") {
+    return await axios.get(`/api/nirvana/set?mode=autoLoginGame&value=${value}`).then(res => res.data);
+}
+
+// 自动登录游戏163Email
+export async function autoLoginGame163Email(value = "true") {
+    return await axios.get(`/api/nirvana/set?mode=autoLoginGame163Email&value=${value}`).then(res => res.data);
+}
+
+// 自动登录游戏Cookie
+export async function autoLoginGameCookie(value = "true") {
+    return await axios.get(`/api/nirvana/set?mode=autoLoginGameCookie&value=${value}`).then(res => res.data);
+}
+
+// 使用JavaW
+export async function setUseJavaW(value = "true") {
+    return await axios.get(`/api/nirvana/set?mode=useJavaW&value=${value}`).then(res => res.data);
+}
+
+// 切换主题
+export async function setThemeSwitch(theme) {
+    return await axios.post(`/api/theme/switch`, theme).then(res => res.data);
+}
+
+// 自动更新插件
+export async function autoUpdatePlugin(value = "true") {
+    return await axios.get(`/api/nirvana/set?mode=autoUpdatePlugin&value=${value}`).then(res => res.data);
+}
+
+// 初始化窗口模式
+export async function initWindowMode() {
+    // 发送初始化窗口模式消息
+    if (window.external && window.external.sendMessage) {
+        window.external.sendMessage(JSON.stringify({ action: "fantnel:init" }));
+    }
+}
+
+// 窗口最小化
+export async function minimizeWindow() {
+    if (window.external && window.external.sendMessage) {
+        window.external.sendMessage(JSON.stringify({ action: "window:minimize" }));
+    }
+}
+
+// 窗口关闭
+export async function closeWindow() {
+    if (window.external && window.external.sendMessage) {
+        window.external.sendMessage(JSON.stringify({ action: "window:close" }));
+    }
+}
+
+// 获取日志信息
+export async function getLogs() {
+    return await axios.get("/api/logs").then(res => res.data);
+}
+
+// 发送消息到后端的辅助函数
+export const sendMessage = (action, data = "") => {
+  const message = JSON.stringify({ action, data });
+  if (window.external && window.external.sendMessage) {
+    window.external.sendMessage(message);
+  }
+}
+
+export async function randomGameAccount (data){
+    return await axios.post('/api/gameaccount/random', data).then(res => res.data);
+}
