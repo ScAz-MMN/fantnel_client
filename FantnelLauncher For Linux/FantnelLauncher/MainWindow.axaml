@@ -1,0 +1,74 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="FantnelLauncher.MainWindow"
+        xmlns:wv="using:Avalonia.Controls"
+        Title="Fantnel"
+        Width="1280" Height="800"
+        MinWidth="800" MinHeight="560"
+        WindowStartupLocation="CenterScreen"
+        SystemDecorations="None"
+        ExtendClientAreaToDecorationsHint="True"
+        Background="#ECECEC">
+
+    <!--
+      Frameless window (SystemDecorations=None) so we can draw our own
+      MAC-style title bar. Dragging is done with BeginMoveDrag on the title
+      bar; resizing via the native border (WindowEdge) on pointer-down at the
+      window edge; maximize toggles WindowState.Maximized (the WM keeps the
+      taskbar visible on Linux). The WebView is Avalonia.Controls.NativeWebView
+      which uses WebKitGTK on Linux.
+    -->
+
+    <Grid RowDefinitions="44,*">
+
+        <!-- Custom MAC-style title bar -->
+        <Border Grid.Row="0"
+                Background="#F5F5F7"
+                BorderBrush="#D9D9DE"
+                BorderThickness="0,0,0,1"
+                PointerPressed="TitleBar_PointerPressed">
+
+            <Grid>
+                <TextBlock Text="Fantnel"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                           FontSize="13" FontWeight="SemiBold"
+                           Foreground="#3A3A3C"
+                           IsHitTestVisible="False"/>
+
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right" VerticalAlignment="Center"
+                            Margin="0,0,12,0">
+                    <Button Classes="MacDot" Background="#FF5F57"
+                            Tag="close"
+                            Click="MacButton_Click"/>
+                    <Button Classes="MacDot" Background="#FEBC2E"
+                            Tag="minimize"
+                            Click="MacButton_Click"/>
+                    <Button Classes="MacDot" Background="#28C840"
+                            Tag="maximize"
+                            Click="MacButton_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- WebKitGTK web view -->
+        <wv:NativeWebView x:Name="Web"
+                          Grid.Row="1"
+                          IsVisible="False"/>
+    </Grid>
+
+    <Window.Styles>
+        <!-- MAC-style round colored dots -->
+        <Style Selector="Button.MacDot">
+            <Setter Property="Width" Value="13"/>
+            <Setter Property="Height" Value="13"/>
+            <Setter Property="Margin" Value="4,0,4,0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#22000000"/>
+            <Setter Property="CornerRadius" Value="6.5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </Window.Styles>
+</Window>

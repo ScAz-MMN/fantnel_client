@@ -1,0 +1,614 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0/linux-x64",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {},
+    ".NETCoreApp,Version=v10.0/linux-x64": {
+      "Fantnel/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.OpenApi": "10.0.8",
+          "Nirvana.Public": "1.0.0",
+          "Serilog": "4.3.1",
+          "Serilog.Sinks.Console": "6.1.1",
+          "Serilog.Sinks.Console.LogThemes": "0.4.0"
+        },
+        "runtime": {
+          "Fantnel.dll": {}
+        }
+      },
+      "BarsGroup.CodeGuard/3.2.43": {
+        "runtime": {
+          "lib/netstandard1.5/BarsGroup.CodeGuard.dll": {
+            "assemblyVersion": "3.2.43.0",
+            "fileVersion": "3.2.43.0"
+          }
+        }
+      },
+      "BouncyCastle.Cryptography/2.6.2": {
+        "runtime": {
+          "lib/net6.0/BouncyCastle.Cryptography.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.6.2.46322"
+          }
+        }
+      },
+      "DotNetty.Buffers/0.7.6": {
+        "dependencies": {
+          "DotNetty.Common": "0.7.6"
+        },
+        "runtime": {
+          "lib/net6.0/DotNetty.Buffers.dll": {
+            "assemblyVersion": "0.7.6.0",
+            "fileVersion": "0.7.6.0"
+          }
+        }
+      },
+      "DotNetty.Codecs/0.7.6": {
+        "dependencies": {
+          "DotNetty.Buffers": "0.7.6",
+          "DotNetty.Common": "0.7.6",
+          "DotNetty.Transport": "0.7.6"
+        },
+        "runtime": {
+          "lib/net6.0/DotNetty.Codecs.dll": {
+            "assemblyVersion": "0.7.6.0",
+            "fileVersion": "0.7.6.0"
+          }
+        }
+      },
+      "DotNetty.Common/0.7.6": {
+        "runtime": {
+          "lib/net6.0/DotNetty.Common.dll": {
+            "assemblyVersion": "0.7.6.0",
+            "fileVersion": "0.7.6.0"
+          }
+        }
+      },
+      "DotNetty.Handlers/0.7.6": {
+        "dependencies": {
+          "DotNetty.Buffers": "0.7.6",
+          "DotNetty.Codecs": "0.7.6",
+          "DotNetty.Common": "0.7.6",
+          "DotNetty.Transport": "0.7.6"
+        },
+        "runtime": {
+          "lib/net6.0/DotNetty.Handlers.dll": {
+            "assemblyVersion": "0.7.6.0",
+            "fileVersion": "0.7.6.0"
+          }
+        }
+      },
+      "DotNetty.Transport/0.7.6": {
+        "dependencies": {
+          "DotNetty.Buffers": "0.7.6",
+          "DotNetty.Common": "0.7.6"
+        },
+        "runtime": {
+          "lib/net6.0/DotNetty.Transport.dll": {
+            "assemblyVersion": "0.7.6.0",
+            "fileVersion": "0.7.6.0"
+          }
+        }
+      },
+      "Downloader/5.5.0": {
+        "runtime": {
+          "lib/net10.0/Downloader.dll": {
+            "assemblyVersion": "5.5.0.0",
+            "fileVersion": "5.5.0.0"
+          }
+        }
+      },
+      "log4net/2.0.8": {
+        "runtime": {
+          "lib/netstandard1.3/log4net.dll": {
+            "assemblyVersion": "2.0.8.0",
+            "fileVersion": "2.0.8.0"
+          }
+        }
+      },
+      "MessagePack/3.1.4": {
+        "dependencies": {
+          "MessagePack.Annotations": "3.1.4",
+          "Microsoft.NET.StringTools": "17.11.4"
+        },
+        "runtime": {
+          "lib/net9.0/MessagePack.dll": {
+            "assemblyVersion": "3.1.4.0",
+            "fileVersion": "3.1.4.0"
+          }
+        }
+      },
+      "MessagePack.Annotations/3.1.4": {
+        "runtime": {
+          "lib/netstandard2.0/MessagePack.Annotations.dll": {
+            "assemblyVersion": "3.1.4.0",
+            "fileVersion": "3.1.4.0"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.OpenApi/10.0.8": {
+        "dependencies": {
+          "Microsoft.OpenApi": "2.0.0"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.AspNetCore.OpenApi.dll": {
+            "assemblyVersion": "10.0.8.0",
+            "fileVersion": "10.0.826.23019"
+          }
+        }
+      },
+      "Microsoft.NET.StringTools/17.11.4": {
+        "runtime": {
+          "lib/net8.0/Microsoft.NET.StringTools.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "17.11.4.40609"
+          }
+        }
+      },
+      "Microsoft.OpenApi/2.0.0": {
+        "runtime": {
+          "lib/net8.0/Microsoft.OpenApi.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.0.0"
+          }
+        }
+      },
+      "NullGuard.Fody/1.7.1": {
+        "runtime": {
+          "lib/netstandard1.4/NullGuard.dll": {
+            "assemblyVersion": "1.7.1.0",
+            "fileVersion": "1.7.1.0"
+          }
+        }
+      },
+      "OpenTl.Netty.Socks/1.0.2": {
+        "dependencies": {
+          "BarsGroup.CodeGuard": "3.2.43",
+          "DotNetty.Handlers": "0.7.6",
+          "NullGuard.Fody": "1.7.1",
+          "log4net": "2.0.8"
+        },
+        "runtime": {
+          "lib/netstandard1.6/OpenTl.Netty.Socks.dll": {
+            "assemblyVersion": "1.0.2.0",
+            "fileVersion": "1.0.2.0"
+          }
+        }
+      },
+      "Serilog/4.3.1": {
+        "runtime": {
+          "lib/net10.0/Serilog.dll": {
+            "assemblyVersion": "4.3.0.0",
+            "fileVersion": "4.3.0.0"
+          }
+        }
+      },
+      "Serilog.Sinks.Console/6.1.1": {
+        "dependencies": {
+          "Serilog": "4.3.1"
+        },
+        "runtime": {
+          "lib/net8.0/Serilog.Sinks.Console.dll": {
+            "assemblyVersion": "6.1.1.0",
+            "fileVersion": "6.1.1.0"
+          }
+        }
+      },
+      "Serilog.Sinks.Console.LogThemes/0.4.0": {
+        "dependencies": {
+          "Serilog.Sinks.Console": "6.1.1"
+        },
+        "runtime": {
+          "lib/net7.0/Serilog.Sinks.Console.LogThemes.dll": {
+            "assemblyVersion": "0.4.0.0",
+            "fileVersion": "0.4.0.0"
+          }
+        }
+      },
+      "SharpCompress/0.48.0": {
+        "runtime": {
+          "lib/net10.0/SharpCompress.dll": {
+            "assemblyVersion": "0.48.0.0",
+            "fileVersion": "0.48.0.0"
+          }
+        }
+      },
+      "SharpZipLib/1.4.2": {
+        "runtime": {
+          "lib/net6.0/ICSharpCode.SharpZipLib.dll": {
+            "assemblyVersion": "1.4.2.13",
+            "fileVersion": "1.4.2.13"
+          }
+        }
+      },
+      "System.CodeDom/10.0.7": {
+        "runtime": {
+          "lib/net10.0/System.CodeDom.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.726.21808"
+          }
+        }
+      },
+      "System.IO.Hashing/10.0.7": {
+        "runtime": {
+          "lib/net10.0/System.IO.Hashing.dll": {
+            "assemblyVersion": "10.0.0.7",
+            "fileVersion": "10.0.726.21808"
+          }
+        }
+      },
+      "System.Management/10.0.7": {
+        "dependencies": {
+          "System.CodeDom": "10.0.7"
+        },
+        "runtime": {
+          "lib/net10.0/System.Management.dll": {
+            "assemblyVersion": "10.0.0.7",
+            "fileVersion": "10.0.726.21808"
+          }
+        }
+      },
+      "YamlDotNet/17.1.0": {
+        "runtime": {
+          "lib/net10.0/YamlDotNet.dll": {
+            "assemblyVersion": "17.0.0.0",
+            "fileVersion": "17.1.0.0"
+          }
+        }
+      },
+      "Nirvana.Cipher/1.0.0": {
+        "dependencies": {
+          "BouncyCastle.Cryptography": "2.6.2",
+          "Nirvana.WPFLauncher": "1.0.0",
+          "NirvanaAPI": "1.0.0",
+          "Serilog": "4.3.1",
+          "System.IO.Hashing": "10.0.7"
+        },
+        "runtime": {
+          "Nirvana.Cipher.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Nirvana.Development/1.0.0": {
+        "dependencies": {
+          "BouncyCastle.Cryptography": "2.6.2",
+          "DotNetty.Buffers": "0.7.6",
+          "DotNetty.Codecs": "0.7.6",
+          "DotNetty.Common": "0.7.6",
+          "DotNetty.Handlers": "0.7.6",
+          "DotNetty.Transport": "0.7.6",
+          "MessagePack": "3.1.4",
+          "Nirvana.DevPlugin": "1.0.0",
+          "Nirvana.Game.Launcher": "1.0.0",
+          "OpenTl.Netty.Socks": "1.0.2",
+          "Serilog": "4.3.1",
+          "Serilog.Sinks.Console": "6.1.1",
+          "Serilog.Sinks.Console.LogThemes": "0.4.0",
+          "SharpZipLib": "1.4.2",
+          "YamlDotNet": "17.1.0"
+        },
+        "runtime": {
+          "Nirvana.Development.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Nirvana.DevPlugin/1.0.0": {
+        "dependencies": {
+          "BouncyCastle.Cryptography": "2.6.2",
+          "DotNetty.Buffers": "0.7.6",
+          "DotNetty.Transport": "0.7.6",
+          "Nirvana.WPFLauncher": "1.0.0",
+          "Serilog": "4.3.1"
+        },
+        "runtime": {
+          "Nirvana.DevPlugin.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Nirvana.Game.Launcher/1.0.0": {
+        "dependencies": {
+          "Downloader": "5.5.0",
+          "Nirvana.Cipher": "1.0.0",
+          "Nirvana.WPFLauncher": "1.0.0",
+          "NirvanaAPI": "1.0.0",
+          "Serilog": "4.3.1",
+          "Serilog.Sinks.Console": "6.1.1",
+          "Serilog.Sinks.Console.LogThemes": "0.4.0",
+          "SharpCompress": "0.48.0",
+          "System.Management": "10.0.7"
+        },
+        "runtime": {
+          "Nirvana.Game.Launcher.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Nirvana.Heypixel/1.0.0": {
+        "dependencies": {
+          "Nirvana.Development": "1.0.0"
+        },
+        "runtime": {
+          "Nirvana.Heypixel.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Nirvana.Public/1.0.0": {
+        "dependencies": {
+          "Nirvana.Cipher": "1.0.0",
+          "Nirvana.Game.Launcher": "1.0.0",
+          "Nirvana.Heypixel": "1.0.0",
+          "Serilog": "4.3.1",
+          "Serilog.Sinks.Console": "6.1.1",
+          "Serilog.Sinks.Console.LogThemes": "0.4.0"
+        },
+        "runtime": {
+          "Nirvana.Public.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Nirvana.WPFLauncher/1.0.0": {
+        "dependencies": {
+          "NirvanaAPI": "1.0.0",
+          "Serilog": "4.3.1",
+          "Serilog.Sinks.Console": "6.1.1",
+          "Serilog.Sinks.Console.LogThemes": "0.4.0"
+        },
+        "runtime": {
+          "Nirvana.WPFLauncher.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "NirvanaAPI/1.0.0": {
+        "dependencies": {
+          "Serilog": "4.3.1",
+          "Serilog.Sinks.Console": "6.1.1",
+          "Serilog.Sinks.Console.LogThemes": "0.4.0"
+        },
+        "runtime": {
+          "NirvanaAPI.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Fantnel/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BarsGroup.CodeGuard/3.2.43": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+vji/7ULlOsORK7gT8ecz2Yhrh6jEi66HDMqv9pgnNhvq147W3agLPtzvI/9UfhBMj5dHN6cFmUY63rG3uBmLQ==",
+      "path": "barsgroup.codeguard/3.2.43",
+      "hashPath": "barsgroup.codeguard.3.2.43.nupkg.sha512"
+    },
+    "BouncyCastle.Cryptography/2.6.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7oWOcvnntmMKNzDLsdxAYqApt+AjpRpP2CShjMfIa3umZ42UQMvH0tl1qAliYPNYO6vTdcGMqnRrCPmsfzTI1w==",
+      "path": "bouncycastle.cryptography/2.6.2",
+      "hashPath": "bouncycastle.cryptography.2.6.2.nupkg.sha512"
+    },
+    "DotNetty.Buffers/0.7.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JVYypDugRG4m3hbS0drCC79vX93zqjn5w+U4ti/KXjTIzcQ/UVHrCgs7ZgJfWRUQLfgfQB0daYQtE18lKD8pHg==",
+      "path": "dotnetty.buffers/0.7.6",
+      "hashPath": "dotnetty.buffers.0.7.6.nupkg.sha512"
+    },
+    "DotNetty.Codecs/0.7.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XBZy/m3+V8PBUHHHbFKaRBE0+knTCitcE8oKCQn4jZybH25mCZ1vTwj3BRuPYdNpzh74Op32Hj4ZXF+DMx/oAg==",
+      "path": "dotnetty.codecs/0.7.6",
+      "hashPath": "dotnetty.codecs.0.7.6.nupkg.sha512"
+    },
+    "DotNetty.Common/0.7.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dmK8Njfh2Y4qnz99lLK0evoc46FPL5WOnHMLlavNZ6zqC5/bKgqGsJFoXbhVPkSYDp58g2euI64dhY0cvOUOZQ==",
+      "path": "dotnetty.common/0.7.6",
+      "hashPath": "dotnetty.common.0.7.6.nupkg.sha512"
+    },
+    "DotNetty.Handlers/0.7.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6sSMp0Md8DbpyOAV9IjiR30uzaLrxAbJTcwFFpMJM1+EJhvPz6Ywt0RqoV6+lseq6zqBjMq2jbPTKcqPoqNYIA==",
+      "path": "dotnetty.handlers/0.7.6",
+      "hashPath": "dotnetty.handlers.0.7.6.nupkg.sha512"
+    },
+    "DotNetty.Transport/0.7.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-EVQ5FihFPdWmw7v6l/4iyMepj49vZT11kWQNJ0ApC4KzkdJJ6LM/7NDUgghyxbO0e25nfQRtkGLP5EZAEo7QDA==",
+      "path": "dotnetty.transport/0.7.6",
+      "hashPath": "dotnetty.transport.0.7.6.nupkg.sha512"
+    },
+    "Downloader/5.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-md69tMUzX6UNXgGizdyXDTgizCoCnw8qCuk2dNn4trIqFJJEjcDRuKtNfkbMPyZkLc5CFVQ9wOQ5xp8n0y0sGg==",
+      "path": "downloader/5.5.0",
+      "hashPath": "downloader.5.5.0.nupkg.sha512"
+    },
+    "log4net/2.0.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-N41MQGHZImiCfn0cUuSBjZxrcNfIQCuCgQP0rpgB3J/NWponEh3lc1LxJEuIsPAR9Oc1jVvfkNNFCY1C5hf9LA==",
+      "path": "log4net/2.0.8",
+      "hashPath": "log4net.2.0.8.nupkg.sha512"
+    },
+    "MessagePack/3.1.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-BH0wlHWmVoZpbAPyyt2Awbq30C+ZsS3eHSkYdnyUAbqVJ22fAJDzn2xTieBeoT5QlcBzp61vHcv878YJGfi3mg==",
+      "path": "messagepack/3.1.4",
+      "hashPath": "messagepack.3.1.4.nupkg.sha512"
+    },
+    "MessagePack.Annotations/3.1.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-aVWrDAkCdqxwQsz/q0ldPh2EFn48M99YUzE9OvZjMq2RNLKz4o2z88iGFvSvbMqOWRweRvKPHBJZe22PRqzslQ==",
+      "path": "messagepack.annotations/3.1.4",
+      "hashPath": "messagepack.annotations.3.1.4.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.OpenApi/10.0.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-cw24xHE2QaWwyEG9GQwFbjboyabub6Vd80DIItUGENzcQOa/BEnTrXsg2GADqWTmY/3ycqk9ToLGjgvF/VRlGA==",
+      "path": "microsoft.aspnetcore.openapi/10.0.8",
+      "hashPath": "microsoft.aspnetcore.openapi.10.0.8.nupkg.sha512"
+    },
+    "Microsoft.NET.StringTools/17.11.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-mudqUHhNpeqIdJoUx2YDWZO/I9uEDYVowan89R6wsomfnUJQk6HteoQTlNjZDixhT2B4IXMkMtgZtoceIjLRmA==",
+      "path": "microsoft.net.stringtools/17.11.4",
+      "hashPath": "microsoft.net.stringtools.17.11.4.nupkg.sha512"
+    },
+    "Microsoft.OpenApi/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-GGYLfzV/G/ct80OZ45JxnWP7NvMX1BCugn/lX7TH5o0lcVaviavsLMTxmFV2AybXWjbi3h6FF1vgZiTK6PXndw==",
+      "path": "microsoft.openapi/2.0.0",
+      "hashPath": "microsoft.openapi.2.0.0.nupkg.sha512"
+    },
+    "NullGuard.Fody/1.7.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-fbc12ILwpND7lc635sEFYFJKpSjyIPpjAylFempcOGBggTa+mxsw1Qq37kP/LRPOYdW71+FGRqlp6gimiVjB5A==",
+      "path": "nullguard.fody/1.7.1",
+      "hashPath": "nullguard.fody.1.7.1.nupkg.sha512"
+    },
+    "OpenTl.Netty.Socks/1.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qBTukBiw+fx75UXDX/woH/hsXzs+kNPL2fSZaoZToUiCXb6lATVze1gCW0GF2d6yipSFBnFdIwoCCAoi29k5sA==",
+      "path": "opentl.netty.socks/1.0.2",
+      "hashPath": "opentl.netty.socks.1.0.2.nupkg.sha512"
+    },
+    "Serilog/4.3.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-savYe7h5yRlkqBVOwP8cIRDOdqKiPmYCU4W87JH38sBmcKD5EBoXvQIw6bNEvZ/pTe1gsiye3VFCzBsoppGkXQ==",
+      "path": "serilog/4.3.1",
+      "hashPath": "serilog.4.3.1.nupkg.sha512"
+    },
+    "Serilog.Sinks.Console/6.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-8jbqgjUyZlfCuSTaJk6lOca465OndqOz3KZP6Cryt/IqZYybyBu7GP0fE/AXBzrrQB3EBmQntBFAvMVz1COvAA==",
+      "path": "serilog.sinks.console/6.1.1",
+      "hashPath": "serilog.sinks.console.6.1.1.nupkg.sha512"
+    },
+    "Serilog.Sinks.Console.LogThemes/0.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-w7OLGCJXM7QPvacr52IyKI9lQIEo7VE9az7lyDH7sfeygpQGQbxMzU7uWFVDMYoQv+XRZ0KFvy8jGZQtjjH8Ew==",
+      "path": "serilog.sinks.console.logthemes/0.4.0",
+      "hashPath": "serilog.sinks.console.logthemes.0.4.0.nupkg.sha512"
+    },
+    "SharpCompress/0.48.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6k0Sa9gf85Sz9Npy7jnn5UPerejrAa3FxU9Gq5T6PwFWHUhUIdF903TjPiJtrYjXFJsXbnccaWSNMHzEg27DwQ==",
+      "path": "sharpcompress/0.48.0",
+      "hashPath": "sharpcompress.0.48.0.nupkg.sha512"
+    },
+    "SharpZipLib/1.4.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-yjj+3zgz8zgXpiiC3ZdF/iyTBbz2fFvMxZFEBPUcwZjIvXOf37Ylm+K58hqMfIBt5JgU/Z2uoUS67JmTLe973A==",
+      "path": "sharpziplib/1.4.2",
+      "hashPath": "sharpziplib.1.4.2.nupkg.sha512"
+    },
+    "System.CodeDom/10.0.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bwKU+E9lAt6wRDtSdPnmcnKEev5hpUrQOPBIOVYXfN69GQPYJv9IxeifiBOm53QzYmARUjEKNwPlFALE9Ab53Q==",
+      "path": "system.codedom/10.0.7",
+      "hashPath": "system.codedom.10.0.7.nupkg.sha512"
+    },
+    "System.IO.Hashing/10.0.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6hsjdSr4VOXSOnhALkYplHpAxnTG1J33YN42IB6nH2fEg4QnJqrZ4Ft+qn7mkrKAOYC8pCSFYwVWw6rQbmwgLQ==",
+      "path": "system.io.hashing/10.0.7",
+      "hashPath": "system.io.hashing.10.0.7.nupkg.sha512"
+    },
+    "System.Management/10.0.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-urkYf/JYCGUSF7+95BF2yM5E+QwnpR1Sf23vBw/niZfNbIkxvwYgRV0eoOq5wmz44JLEZ2Jojxa6nvgkrPVGfg==",
+      "path": "system.management/10.0.7",
+      "hashPath": "system.management.10.0.7.nupkg.sha512"
+    },
+    "YamlDotNet/17.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-AhsNXgeAs3Ugt653t8LC44xXDuldFfwBpWbWX9pN3e4Yg8U5Bk8jLn8eXtGv5HV2V2nHu7F46fqsPC+tpcTGAA==",
+      "path": "yamldotnet/17.1.0",
+      "hashPath": "yamldotnet.17.1.0.nupkg.sha512"
+    },
+    "Nirvana.Cipher/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Nirvana.Development/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Nirvana.DevPlugin/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Nirvana.Game.Launcher/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Nirvana.Heypixel/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Nirvana.Public/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Nirvana.WPFLauncher/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NirvanaAPI/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
